@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-__author__ = 'Kevin Clark'
+__author__ = 'Kevin Clark with help from Joseph Hafed'
 
 import requests
 
@@ -33,9 +33,17 @@ def graphic_display():
     pass
 
 
+def overhead_indi():
+    """Finds next time ISS will be over Indianapolis,
+    Indiana. Plots a yellow dot on the map"""
+    pass
+
+
 def main():
     obtain_astronauts()
     current_coord()
+    graphic_display()
+    overhead_indi()
 
 
 if __name__ == '__main__':
