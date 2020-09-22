@@ -10,14 +10,20 @@ def obtain_astronauts():
     the spacecraft they are aboard, and the total number
     of astronauts in space
     """
-    pass
+    r = requests.get('http://api.open-notify.org/astros.json')
+    astros = r.text
+    print(astros)
+    return astros
 
 
 def current_coord():
     """obtains geographic coordinates of ISS along with
     timestamp
     """
-    pass
+    r = requests.get('http://api.open-notify.org/iss-now.json')
+    coords = r.text
+    print(coords)
+    return coords
 
 
 def graphic_display():
@@ -28,7 +34,8 @@ def graphic_display():
 
 
 def main():
-    pass
+    obtain_astronauts()
+    current_coord()
 
 
 if __name__ == '__main__':
