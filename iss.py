@@ -32,7 +32,7 @@ def current_coord():
 def graphic_display():
     """Creates a graphic screen with the world map,
     registers an icon for the ISS and moves the ISS to
-    its current lat/lon on the map. Adds yellow dot for 
+    its current lat/lon on the map. Adds yellow dot for
     Indianapolis geolocation"""
     coords = current_coord()
     wn = turtle.Screen()
