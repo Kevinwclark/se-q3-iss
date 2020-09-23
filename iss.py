@@ -4,6 +4,7 @@ __author__ = 'Kevin Clark with help from Joseph Hafed'
 
 import requests
 import turtle
+import time
 
 
 def obtain_astronauts():
@@ -12,9 +13,10 @@ def obtain_astronauts():
     of astronauts in space
     """
     r = requests.get('http://api.open-notify.org/astros.json')
-    astros = r.text
-    print(astros)
-    return astros
+    astros = r.json()
+    print(f'Total # of astronauts: {astros["number"]}')
+    for i in astros["people"]:
+        print(f'Currently on board the: {i["craft"]}, name: {i["name"]}')
 
 
 def current_coord():
@@ -26,7 +28,6 @@ def current_coord():
     lng = float(coords["iss_position"]["longitude"])
     lat = float(coords["iss_position"]["latitude"])
     new_coords = [lng, lat]
-    print(new_coords)
     return new_coords
 
 
@@ -38,7 +39,7 @@ def graphic_display():
     wn = turtle.Screen()
     wn.bgpic('map.gif')
     wn.setup(width=720, height=360)
-    wn.setworldcoordinates(180, -90, -180, 90)
+    wn.setworldcoordinates(-180, -90, 180, 90)
 
     wn.register_shape('iss.gif')
     iss = turtle.Turtle()
@@ -48,26 +49,31 @@ def graphic_display():
 
     indi = turtle.Turtle()
     indi.penup()
-    indi.goto(86.158068, 39.768403)
+    indi.goto(-86.158068, 39.768403)
     indi.shape('circle')
     indi.color('yellow')
     indi.turtlesize(0.3)
 
-    wn.mainloop()
-    # wn.exitonclick()
+    wn.exitonclick()
 
 
 def overhead_indi():
     """Finds next time ISS will be over Indianapolis,
     Indiana."""
-    pass
+    r = requests.get(
+            "http://api.open-notify.org/iss/v1/?lat=40.027435&lon=-86.158068&alt=1650&n=1"
+            )
+    resp = r.json()
+    date = resp['request']['datetime']
+    overhead_date = time.ctime(date)
+    print(f"The next time the ISS will pass over Indianapolis is on: {overhead_date}")
 
 
 def main():
     obtain_astronauts()
     current_coord()
-    graphic_display()
     overhead_indi()
+    graphic_display()
 
 
 if __name__ == '__main__':
