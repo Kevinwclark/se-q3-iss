@@ -8,10 +8,9 @@ import time
 
 
 def obtain_astronauts():
-    """obtains a list of astronauts, prints full names,
-    the spacecraft they are aboard, and the total number
-    of astronauts in space
-    """
+    """Obtains a list of astronauts, prints full names,
+    the spacecraft that are aboard, and the total number
+    of astronauts in space"""
     r = requests.get('http://api.open-notify.org/astros.json')
     astros = r.json()
     print(f'Total # of astronauts: {astros["number"]}')
@@ -20,9 +19,8 @@ def obtain_astronauts():
 
 
 def current_coord():
-    """obtains geographic coordinates of ISS along with
-    timestamp
-    """
+    """Obtains geographic coordinates of ISS along with
+    timestamp"""
     r = requests.get('http://api.open-notify.org/iss-now.json')
     coords = r.json()
     lng = float(coords["iss_position"]["longitude"])
@@ -32,9 +30,10 @@ def current_coord():
 
 
 def graphic_display():
-    """creates a graphic screen with the world map,
+    """Creates a graphic screen with the world map,
     registers an icon for the ISS and moves the ISS to
-    its current lat/lon on the map"""
+    its current lat/lon on the map. Adds yellow dot for 
+    Indianapolis geolocation"""
     coords = current_coord()
     wn = turtle.Screen()
     wn.bgpic('map.gif')
@@ -59,7 +58,7 @@ def graphic_display():
 
 def overhead_indi():
     """Finds next time ISS will be over Indianapolis,
-    Indiana."""
+    Indiana and prints"""
     r = requests.get(
         """
         http://api.open-notify.org/iss/v1/?lat=40.027435&lon=-86.158068&alt=1650&n=1
