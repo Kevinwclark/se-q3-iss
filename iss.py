@@ -3,7 +3,7 @@
 __author__ = 'Kevin Clark with help from Joseph Hafed'
 
 import requests
-import turtle
+import turtle 
 
 
 def obtain_astronauts():
@@ -31,12 +31,29 @@ def graphic_display():
     """creates a graphic screen with the world map,
     registers an icon for the ISS and moves the ISS to
     its current lat/lon on the map"""
-    turtle.bgpic('map.gif') 
+    wn = turtle.Screen()
+    wn.bgpic('map.gif')
+    wn.setup(width=650, height=370)
+
+    wn.register_shape('iss.gif')
+    iss = turtle.Turtle()
+    iss.shape('iss.gif')
+    iss.goto(-10, 0)
+
+    indi = turtle.Turtle()
+    indi.penup()
+    indi.goto(-190, 86)
+    indi.shape('circle')
+    indi.color('yellow')
+    indi.turtlesize(0.3)
+
+    wn.mainloop()
+    # wn.exitonclick()
 
 
 def overhead_indi():
     """Finds next time ISS will be over Indianapolis,
-    Indiana. Plots a yellow dot on the map"""
+    Indiana."""
     pass
 
 
