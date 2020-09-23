@@ -3,6 +3,7 @@
 __author__ = 'Kevin Clark with help from Joseph Hafed'
 
 import requests
+import turtle
 
 
 def obtain_astronauts():
@@ -30,7 +31,7 @@ def graphic_display():
     """creates a graphic screen with the world map,
     registers an icon for the ISS and moves the ISS to
     its current lat/lon on the map"""
-    pass
+    turtle.bgpic('map.gif') 
 
 
 def overhead_indi():
