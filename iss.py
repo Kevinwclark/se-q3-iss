@@ -61,12 +61,20 @@ def overhead_indi():
     """Finds next time ISS will be over Indianapolis,
     Indiana."""
     r = requests.get(
-            "http://api.open-notify.org/iss/v1/?lat=40.027435&lon=-86.158068&alt=1650&n=1"
-            )
+        """
+        http://api.open-notify.org/iss/v1/?lat=40.027435&lon=-86.158068&alt=1650&n=1
+        """
+        )
     resp = r.json()
-    date = resp['request']['datetime']
+    date = resp['response'][0]['risetime']
+    seconds = resp['response'][0]['duration']
+    # print(f'here is the response: {resp}')
+    # print(f'here is the date: {date}')
     overhead_date = time.ctime(date)
-    print(f"The next time the ISS will pass over Indianapolis is on: {overhead_date}")
+    print(f"""
+    The next time the ISS will pass over Indianapolis is on: {overhead_date}
+    for a duration of {seconds} seconds
+    """)
 
 
 def main():
