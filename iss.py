@@ -68,8 +68,6 @@ def overhead_indi():
     resp = r.json()
     date = resp['response'][0]['risetime']
     seconds = resp['response'][0]['duration']
-    # print(f'here is the response: {resp}')
-    # print(f'here is the date: {date}')
     overhead_date = time.ctime(date)
     print(f"""
     The next time the ISS will pass over Indianapolis is on: {overhead_date}
