@@ -3,7 +3,7 @@
 __author__ = 'Kevin Clark with help from Joseph Hafed'
 
 import requests
-import turtle 
+import turtle
 
 
 def obtain_astronauts():
@@ -22,27 +22,33 @@ def current_coord():
     timestamp
     """
     r = requests.get('http://api.open-notify.org/iss-now.json')
-    coords = r.text
-    print(coords)
-    return coords
+    coords = r.json()
+    lng = float(coords["iss_position"]["longitude"])
+    lat = float(coords["iss_position"]["latitude"])
+    new_coords = [lng, lat]
+    print(new_coords)
+    return new_coords
 
 
 def graphic_display():
     """creates a graphic screen with the world map,
     registers an icon for the ISS and moves the ISS to
     its current lat/lon on the map"""
+    coords = current_coord()
     wn = turtle.Screen()
     wn.bgpic('map.gif')
-    wn.setup(width=650, height=370)
+    wn.setup(width=720, height=360)
+    wn.setworldcoordinates(180, -90, -180, 90)
 
     wn.register_shape('iss.gif')
     iss = turtle.Turtle()
+    iss.penup()
+    iss.goto(coords[0], coords[1])
     iss.shape('iss.gif')
-    iss.goto(-10, 0)
 
     indi = turtle.Turtle()
     indi.penup()
-    indi.goto(-190, 86)
+    indi.goto(86.158068, 39.768403)
     indi.shape('circle')
     indi.color('yellow')
     indi.turtlesize(0.3)
