@@ -34,6 +34,7 @@ def graphic_display():
     registers an icon for the ISS and moves the ISS to
     its current lat/lon on the map. Adds yellow dot for
     Indianapolis geolocation"""
+    indi_data = overhead_indi()
     coords = current_coord()
     wn = turtle.Screen()
     wn.bgpic('map.gif')
@@ -51,7 +52,16 @@ def graphic_display():
     indi.goto(-86.158068, 39.768403)
     indi.shape('circle')
     indi.color('yellow')
-    indi.turtlesize(0.3)
+    indi.turtlesize(0.1)
+
+    indi_text = turtle.Turtle()
+    indi_text.penup()
+    indi_text.color('white')
+    indi_text.goto(-80.158068, 39.768403)
+    indi_text.write(f"""
+    The next time the ISS will pass over Indianapolis
+    is on: {indi_data[0]} for a duration of {indi_data[1]}
+    seconds""")
 
     wn.exitonclick()
 
@@ -68,10 +78,8 @@ def overhead_indi():
     date = resp['response'][0]['risetime']
     seconds = resp['response'][0]['duration']
     overhead_date = time.ctime(date)
-    print(f"""
-    The next time the ISS will pass over Indianapolis is on: {overhead_date}
-    for a duration of {seconds} seconds
-    """)
+    indi_data = [overhead_date, seconds]
+    return indi_data
 
 
 def main():
